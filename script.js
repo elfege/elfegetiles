@@ -29,7 +29,10 @@
       document.getElementById("appNumber").value = "";
       */
       
-      
+      /* this part is for me only and must be deleted in the public distribution*/
+      document.getElementById("access_token").value = "access_token=d6699bb3-0d13-48d1-ab5d-8cc583efa76c";
+      document.getElementById("ip").value = "192.168.10.72";
+      document.getElementById("appNumber").value = "35";
 
       /*Do not modify anything below*/
       console.log("setting default values")
