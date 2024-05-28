@@ -72,8 +72,5 @@ The Smart Home Dashboard was developed using the following libraries and resourc
 
 ## Contact
 
-For any inquiries or questions, please contact [your-email@example.com](mailto:your-email@example.com).
+For any inquiries or questions, please contact [your-email@example.com](mailto:elfege@elfege.com).
 
----
-
-Feel free to customize the README file based on your specific project details, add more sections if needed, and provide clear instructions for installation, usage, and contribution.
