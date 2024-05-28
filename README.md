@@ -72,5 +72,5 @@ The Smart Home Dashboard was developed using the following libraries and resourc
 
 ## Contact
 
-For any inquiries or questions, please contact [your-email@example.com](mailto:elfege@elfege.com).
+For any inquiries or questions, please contact [email](mailto:elfege@elfege.com).
 
