@@ -1,83 +1,227 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>SMART HOME INTERFACE</title>
-    <link rel="stylesheet" href="style.css">    
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta name="viewport" content="maximum-scale=1.0">
-    <meta name="viewport" content="user-scalable=no">
-    <meta name="viewport" content="width=device-width">
-    <link rel="apple-touch-icon-precomposed" href="http://elfege.com/penrose.jpg">
-    <link rel="apple-touch-startup-image" href="http://elfege.com/penrose.jpg">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  <link rel="icon" type="image/png" href="static/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="static/favicon-16x16.png" sizes="16x16" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
+
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"> -->
+  <!-- JQUERY >= 5 is not compatible with roundslider library -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+  <script src="https://code.jquery.com/jquery-3.6.3.slim.js"
+    integrity="sha256-DKU1CmJ8kBuEwumaLuh9Tl/6ZB6jzGOBV/5YpNE2BWc=" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="tiles.css">
+  <link rel="stylesheet" href="roundslider.css">
+  <script type="text/javascript" src="roundslider.js"></script>
+  <!-- <script type="text/javascript" src="tiles.js"></script> -->
+  <script type="module" src="main.js"></script>
+
+  <!-- <link href="https://cdn.jsdelivr.net/npm/round-slider@1.6.1/dist/roundslider.min.css" rel="stylesheet"/> <script src="https://cdn.jsdelivr.net/npm/round-slider@1.6.1/dist/roundslider.min.js"></script> -->
+  <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/css/bootstrap-switch-button.min.css"
+    rel="stylesheet">
+  <script
+    src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/dist/bootstrap-switch-button.min.js"></script>
+
+  <title>TILES</title>
+
 </head>
-<body onload="getPreferences()">
-  <table style='empty-cells: show'>
-    <tr>
-      <td>
-        <div style="width:70%; margin-left:auto; margin-right:auto">
-          <h1 class="letter" id="pageTitle"></h1>
-          <h1 class="letter" style="float:left; text-align: center;">S</h1>
-          <h1 class="letter" style="float:left; text-align: center;">M</h1>
-          <h1 class="letter" style="float:left; text-align: center;">A</h1>
-          <h1 class="letter" style="float:left; text-align: center;">R</h1>
-          <h1 class="letter" style="float:left; text-align: center;">T</h1>
-          <h1 class="letter" style="float:left; text-align: center;">&nbsp</h1>
-          <h1 class="letter" style="float:left; text-align: center;">H</h1>
-          <h1 class="letter" style="float:left; text-align: center;">O</h1>
-          <h1 class="letter" style="float:left; text-align: center;">M</h1>
-          <h1 class="letter" style="float:left; text-align: center;">E</h1>
-          <h1 class="letter" id="pageTitle"></h1>
+
+<body>
+
+  <div id="overlay" onclick="overlayOff()">
+    <div id="OverlayText"></div>
+  </div>
+
+  <!--MESSAGE CONTAINER-->
+  <div hidden="hidden" class="container-fill">
+    <div class="container-fluid" id="loading_message_container">
+      <div class="row">
+        <div class="col-lg-fluid d-flex justify-content-center">
+          <span class="text-bg-primary" id="loading_message"></span>
         </div>
-      </td>
-    <!-- <td></td> -->
+      </div>
+    </div>
+  </div>
 
+  <!--MASTER CONTAINER-->
+  <div hidden="hidden" class="container-fluid" id="master_container">
+    <!-- NAVBAR -->
+    <nav class="navBar">
 
-    </tr>
-    <tr>
-      <table style='empty-cells: show'>
-        
-        <tr>
-          <td>
-            <table style='empty-cells: show'>
-              <tr>
-                  <div>
-                    <h4 id='currentMode'></h4> 
-                    <h4 id='refreshRateMessage'></h4>
+      <div class="navbar-nav navBar">
+        <div class="container-fluid">
+          <div id="row-nav-buttons" class="row d-flex justify-content-center m-0">
+            
+            <div id="powerSum" hidden="hidden" class="col-fluid m-1 block">
+              <i class="btn btn-outline-warning bt-block navButton m-0"></i>
+            </div>
+            <div class="col-fluid m-1 block">
+              <button class="btn btn-secondary bt-block navButton m-0" onclick="location.reload()">RELOAD</button>
+            </div>
+            <div class="col-fluid m-1 block">
+              <button class="btn btn-secondary bt-block navButton m-0" id="lightsToggle">LIGHTS</button>
+            </div>
+            <div class="col-fluid m-1 block">
+              <button class="btn btn-secondary bt-block navButton m-0" id="switchesToggle">SWITCHES</button>
+            </div>
+            <div class="col-fluid m-1 block">
+              <button class="btn btn-secondary bt-block navButton m-0" id="dimmersToggle">DIMMERS</button>
+            </div>
+            <div class="col-fluid m-1 block">
+              <button class="btn btn-secondary bt-block navButton m-0" id="locksToggle">LOCKS</button>
+            </div>
+            <div class="col-fluid m-1 block">
+              <button class="btn btn-secondary bt-block navButton m-0" id="thremostatsToggle">THERMOSTATS</button>
+            </div>
+            <div class="col-fluid m-1 block">
+              <button class="btn btn-secondary bt-block navButton m-0" id="refreshValues">REFRESH VALUES</button>
+            </div>
+            <div class="col-fluid m-1 block">
+              <button class="btn btn-secondary bt-block navButton m-0" id="showAll">ALL</button>
+            </div>
+            <div class="col-fluid m-1 block">
+              <div class="dropdown">
+                <button class="btn btn-secondary bt-block navButton m-0 dropdown-toggle" type="button"
+                  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span id="currentMode">MODES</span>
+                </button>
+                <div id="modesDrop" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <!-- <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <center>
+      <!--MASTER ROW-->
+      <div class="row m-1">
 
-                    <button class="headerButton refreshButton" class="headerButton" id="refreshALl" onclick="refreshAll('userRequest')"> REFRESH </button>            
-                    <button class="headerButton" id="homepower";> </button>
-                    <button class="headerButton" id="powerSwitches";> </button>
-                    <button class="headerButton" onclick='resetPreferences()'>Reset prefs.</button>
-                    <button class="headerButton" id="reload" onclick="location.reload()"> RELOAD </button> 
-                    <button class="headerButton" id="thermsotats" onclick="window.open('/thermostats.html','_blank')"> Thermostats </button> 
-                     
-                    <button class="headerButton" id="debugbtn" onclick="toggleDebug()">DEBUG</button>
+        <!--MASTER COLUMN-->
+        <div class="col-lg-12">
+
+          <!--ALL DEVICES'S CONTAINER-->
+          <div class="container-fill">
+
+            <!-- ROW CONTAINING LIGHTS SWITCHES AND DIMMERS CONTAINER -->
+            <div class="row d-flex justify-content-center">
+
+              <!-- CONTAINER ALL DEVICES TYPES -->
+              <div class="container-fill d-flex justify-content-center">
+                <div class="row d-flex justify-content-center">
+
+                  <!--LOCKS COL-->
+                  <div hidden="hidden" id="locksCol" class="col-lg-fill text-white m-0">
+                    <div class="container-fill">
+                      <div class="row d-flex justify-content-center">
+                        <span class="titles">
+                          LOCKS</span>
+                      </div>
+                      <div id="rowLocks" class="row d-flex justify-content-center">
+                        <!--LOCKS-->
+
+                      </div>
+                    </div>
                   </div>
-              </tr>
-              <tr>
-                <h4 id="submitBtnRefreshRate">set refresh rate:
-                <input style="width: 20px; height: 20px;" class="refreshrateinput" id="refreshRate" value=""></h4>
-                <h4 id="locks"></h4>
-              </tr>
-              <tr></tr>
-              <tr></tr>
-              <tr></tr>
-            </table>
-          </td>
 
-          <td>           
-            <div style="float:left;" id="buttons"></div>
-            <div style="float:left;" id="dimmers"></div>
-          </td>          
-        </tr>
-      </table>
-    </tr>
-  </table>
+                  <!--LIGHTS COL-->
+                  <div hidden="hidden" id="lightsCol" class="col-lg-fill text-white m-0">
+                    <div class="container-fill">
+                      <div class="row d-flex justify-content-center">
+                        <span class="titles">
+                          LIGHTS</span>
+                      </div>
+                      <div class="row-fill">
+                        <!--LIGHTS-->
+                        <div id="lights" class="col-lg-fill ml-2"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--OTHER SWITCHES COL-->
+                  <div hidden="hidden" id="otherSwitchesCol" class="col-lg-fill text-white m-0">
+                    <div class="container-fill">
+                      <div class="row d-flex justify-content-center p-0 m-0">
+                        <!--OTHER SWITCHES TITLE-->
+                        <span class="titles">
+                          OTHER SWITCHES AND OUTLETS</span>
+                      </div>
+                      <div class="row m-2">
+                        <!-- SWITCHES-->
+                        <div id="switches" class="col-lg-fill ml-2"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- DIMMERS COLUMN -->
+                  <div hidden="hidden" id="dimmersCol" class="col-lg-fill text-white m-0">
+                    <div class="container-fill">
+                      <div class="row d-flex justify-content-center p-0 m-0">
+                        <!--DIMMERS TITLE-->
+                        <span class="titles">
+                          DIMMERS</span>
+                      </div>
+                      <div class="row m-2">
+                        <!--DIMMERS-->
+                        <div class="col-lg-12">
+                          <div id="dimmers"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- THERMOSTATS COLUMN -->
+                  <div hidden="hidden" id="thermostatsCol" class="col-lg-fill text-white m-0">
+                    <div class="container-fill">
+                      <div class="row d-flex justify-content-center p-0 m-0">
+                        <!--THERMOSTATS TITLE-->
+                        <span class="titles">
+                          THERMOSTATS</span>
+                      </div>
+                      <div class="row m-2">
+                        <!--THERMOSTATS-->
+                        <div class="col-lg-12">
+                          <div id="thermostats"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </center>
+  </div>
 
 </body>
+<script>
+  $("#loading_message_container").removeAttr("hidden")
+  $("#loading_message")
+    .text("LOADING... ")
+    .css("color", "white")
+</script>
 
-<script src="script.js?n=1"></script>
 </html>
